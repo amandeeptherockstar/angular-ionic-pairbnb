@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  googleMapsKey: 'AIzaSyAUbRHtu3k_fg3jDGk_qAatE5jA4bC_ndE',
+  mapBoxKey:
+    'pk.eyJ1IjoidGVhbW9weHNhbGVzIiwiYSI6ImNqdm95cWhoNDF4azU0YnMyZXRncDRzc2wifQ.bvb5aW01mgmcPISKKgEzWA',
+  firebaseApiKey: 'AIzaSyD2tUF_UNtFLQIhtCU0eV1PwzyBOf1fOY4'
 };
 
 /*

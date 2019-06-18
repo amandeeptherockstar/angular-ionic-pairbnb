@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ selectedPlace.title }}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="cancel()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">First Name</ion-label>
+            <ion-input
+              type="text"
+              ngModel
+              name="firstName"
+              required
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Last Name</ion-label>
+            <ion-input type="text" ngModel name="lastName" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label>Number of Guests</ion-label>
+            <ion-select placeholder="Select One" name="guests" [ngModel]="'2'">
+              <ion-select-option value="1">1</ion-select-option>
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-sm="3" offset-sm="3">
+          <ion-item>
+            <ion-label>From</ion-label>
+            <ion-datetime
+              display-format="MMM DD, YYYY"
+              picker-format="YYYY MMM DD"
+              [min]="selectedPlace.availableFrom.toISOString()"
+              [max]="selectedPlace.availableTo.toISOString()"
+              [ngModel]="startDate"
+              name="dateFrom"
+              required
+              #startDateCtrl="ngModel"
+              (ionChange)="dateChange($event, 'from')"
+            ></ion-datetime>
+            <!-- startDateCtrl local reference is req as dateTo should be selected automatically and have same value as of dateFrom -->
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-sm="3">
+          <ion-item>
+            <ion-label>To</ion-label>
+            <ion-datetime
+              display-format="MMM DD, YYYY"
+              picker-format="YYYY MMM DD"
+              [ngModel]="endDate"
+              [min]="
+                startDateCtrl.value
+                  ? startDateCtrl.value
+                  : selectedPlace.availableFrom.toISOString()
+              "
+              [max]="selectedPlace.availableTo.toISOString()"
+              name="dateTo"
+              required
+              #endDateCtrl="ngModel"
+              (ionChange)="dateChange($event, 'to')"
+            ></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button
+            type="submit"
+            color="primary"
+            expand="block"
+            [disabled]="
+              !form.valid ? true : isStartAndEndDateValid ? false : true
+            "
+            >Book</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

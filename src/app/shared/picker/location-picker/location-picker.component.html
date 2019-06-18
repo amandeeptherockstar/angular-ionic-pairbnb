@@ -1,0 +1,18 @@
+<div class="picker">
+  <ion-spinner *ngIf="isLoading"></ion-spinner>
+  <ion-img
+    role="button"
+    [src]="staticGoogleMapsUrl"
+    *ngIf="!isLoading && staticGoogleMapsUrl"
+    class="location-image"
+    (click)="openActionSheet()"
+  ></ion-img>
+  <ion-button
+    (click)="openActionSheet()"
+    color="secondary"
+    *ngIf="!isLoading && !staticGoogleMapsUrl"
+  >
+    <ion-icon slot="start" name="locate"></ion-icon>
+    <ion-label>Pick Location</ion-label>
+  </ion-button>
+</div>

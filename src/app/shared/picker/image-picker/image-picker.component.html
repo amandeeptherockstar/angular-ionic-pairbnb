@@ -1,0 +1,28 @@
+<div class="picker">
+  <ion-img
+    role="button"
+    [src]="base64Image || imagePreviewUrl"
+    *ngIf="base64Image || imagePreviewUrl"
+    class="picker-image"
+    (click)="pickImage()"
+  ></ion-img>
+  <ion-button
+    (click)="pickImage()"
+    color="secondary"
+    *ngIf="!base64Image && !imagePreviewUrl"
+  >
+    <ion-icon slot="start" name="locate"></ion-icon>
+    <ion-label>Pick Image</ion-label>
+  </ion-button>
+</div>
+
+<!-- Handle the case where we dont have camera to capture the image, so we will capture the image -->
+<input
+  type="file"
+  *ngIf="usePicker"
+  #filePicker
+  (change)="onFileChoosen($event)"
+/>
+<div text-center padding>
+  Click on the Image to Reselect.
+</div>

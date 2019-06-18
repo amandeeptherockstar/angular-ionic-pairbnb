@@ -1,3 +1,38 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <!-- side-menu goes here -->
+  <ion-menu side="start" menuId="header">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>PairBnB</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      
+      <ion-list lines="none">
+        <ion-menu-toggle menu="header">
+          <ion-item routerLink="/places/tabs/discover">
+            <ion-icon name="business" slot="start"></ion-icon>
+            <ion-label>Discover Places</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle menu="header">
+          <ion-item routerLink="/our-bookings">
+            <ion-icon name="checkbox-outline" slot="start"></ion-icon>
+            <ion-label>Your Bookings</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle menu="header">
+          <ion-item (click)="logout()" button>
+            <ion-icon name="exit" slot="start"></ion-icon>
+            <ion-label>Logout</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <!-- main attribute should be added if you want to use side-bar -->
+  <ion-router-outlet main></ion-router-outlet>
 </ion-app>

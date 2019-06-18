@@ -1,5 +1,8 @@
 {
   "name": "pairbnb",
-  "integrations": {},
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
   "type": "angular"
 }

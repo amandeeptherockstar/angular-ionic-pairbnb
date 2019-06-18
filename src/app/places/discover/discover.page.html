@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="header"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Discover Places</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment (ionChange)="onSegmentChange($event)">
+    <ion-segment-button value="all" checked>All</ion-segment-button>
+    <ion-segment-button value="bookable">Bookable</ion-segment-button>
+  </ion-segment>
+
+  <ion-grid no-padding>
+    <ion-row *ngIf="isLoading">
+      <ion-col padding size="12" size-sm="8" offset-sm="2" text-center>
+        <ion-spinner></ion-spinner>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!isLoading && highlightedPlace">
+      <ion-col size="12" size-sm="8" offset-sm="2" no-padding>
+        <ion-card text-center no-margin>
+          <ion-card-header>
+            <ion-card-title>
+              {{ highlightedPlace.title }}
+            </ion-card-title>
+            <ion-card-subtitle>
+              {{ highlightedPlace.price | currency }} / Night
+            </ion-card-subtitle>
+          </ion-card-header>
+          <ion-img [src]="places[0].imageUrl"></ion-img>
+          <ion-card-content>
+            <p>{{ highlightedPlace.description }}</p>
+          </ion-card-content>
+          <div text-right padding>
+            <ion-button
+              fill="clear"
+              color="primary"
+              [routerLink]="['./', places[0].id]"
+              >More</ion-button
+            >
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row
+      *ngIf="!isLoading && (relevantPlaces && relevantPlaces.length > 0)"
+    >
+      <ion-col size="12" size-sm="8" offset-sm="2" no-padding>
+        <ion-list>
+          <ion-item
+            *ngFor="let place of relevantPlaces"
+            [routerLink]="['./', place.id]"
+          >
+            <ion-thumbnail slot="start">
+              <ion-img [src]="place.imageUrl"></ion-img>
+            </ion-thumbnail>
+            <ion-label>
+              <h2>{{ place.title }}</h2>
+              <p>{{ place.description }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row
+      padding
+      *ngIf="
+        selectedSegment !== 'all' && (!isLoading && relevantPlaces.length <= 0)
+      "
+    >
+      <ion-col size="12" size-sm="8" offset-sm="2">
+        <p>There are no place available as of now, please visit again later.</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
